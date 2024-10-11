@@ -13,22 +13,26 @@ struct ContentView: View {
     
     
     var body: some View {
-        Button("Tap Me"){
-            animationAmount += 1
+        print(animationAmount)
+        
+        return VStack {
+            Stepper("Scale amount", value: $animationAmount.animation(
+                .easeInOut(duration: 1)
+                .repeatCount(3, autoreverses: true)
+            ), in: 1...10)
+            Spacer()
+            
+            Button("Tap me") {
+                animationAmount += 1
+            }
+            .padding(40)
+            .background(Color.red)
+            .foregroundStyle(.white)
+            .clipShape(Circle())
+            .scaleEffect(animationAmount)
         }
-        .padding(50)
-        .background(.red)
-        .foregroundStyle(.white)
-        .clipShape(.circle)
-        .scaleEffect(animationAmount)
-//        .blur(radius: (animationAmount - 1 ) * 3 )
-        .animation(
-            .easeInOut(duration: 2)
-                .delay(1),
-            value: animationAmount)
         
     }
-    
     
 //MARK: - End of View
 }
